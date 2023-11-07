@@ -8,6 +8,21 @@ mkdir grading-area
 git clone $1 student-submission
 echo 'Finished cloning'
 
+# Check file exist
+if [[ -e student-submission/ListExamples.java ]]
+then
+    echo "Exists."
+    cp  student-submission/ListExamples.java grading-area
+    cp  TestListExamples.java grading-area
+    cp -r lib grading-area
+    cd ./grading-area
+    javac -cp ".:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar" *.java
+    java -cp ".:lib/hamcrest-core-1.3.jar:lib/junit-4.13.2.jar" org.junit.runner.JUnitCore ListExamples.java TestListExamples.java
+
+else
+    echo "Does not exist"    
+fi
+
 
 # Draw a picture/take notes on the directory structure that's set up after
 # getting to this point
